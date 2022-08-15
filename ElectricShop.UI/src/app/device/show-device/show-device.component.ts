@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DeviceApiService } from 'src/app/device-api.service';
+import { IDevice } from './../../Models/device';
 
 @Component({
   selector: 'app-show-device',
@@ -8,13 +9,12 @@ import { DeviceApiService } from 'src/app/device-api.service';
   styleUrls: ['./show-device.component.css']
 })
 export class ShowDeviceComponent implements OnInit {
-
-  deviceList$!: Observable<any[]>;
-
+  @Input() device: IDevice
   constructor(private service: DeviceApiService) { }
 
   ngOnInit(): void {
-    this.deviceList$ = this.service.getDevicesList();
   }
+
+  details = false
 
 }

@@ -13,7 +13,9 @@ namespace ElectricShop_API
         [Key] public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-        public string Description { get; set; }
+        public string Image { get; set; }
+        public string ShortDescription { get; set; }
+        public string FullDescription { get; set; }
 
         public int CategoryId { get; set; }
 
