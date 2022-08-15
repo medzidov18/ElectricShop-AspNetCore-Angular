@@ -2,7 +2,8 @@
     <img [src]="device.image" [alt]="device.name" class="w-1/6 mb-2" width="300px" height="300px">
     <h2>{{ device.name }}</h2>
     <p>{{ device.shortDescription }}</p>
-    <p>Price: <span class="font-bold">{{ device.price | currency: ' AZN ' }}</span></p>
+    <p>Цена: <span class="font-bold">{{ device.price | currency: ' AZN ' }}</span></p>
+    <p>Категория товара: {{ categoryMap.get(device.categoryId) }}</p>
     
     <button 
         class="border py-2 px-4 rounded bg-light"

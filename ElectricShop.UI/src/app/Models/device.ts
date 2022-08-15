@@ -5,5 +5,5 @@ export interface IDevice {
     shortDescription: string,
     fullDescription: string,
     price: number,
-    category: number
+    categoryId: number
 }
