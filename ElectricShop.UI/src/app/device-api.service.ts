@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IDevice } from './Models/device';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +13,20 @@ export class DeviceApiService {
   constructor(private http: HttpClient) { }
 
   //Devices
-  getDevicesList(): Observable<any[]> {
-    return this.http.get<any>(this.deviceAPIUrl + '/devices');
+  getDevicesList(): Observable<IDevice[]> {
+    return this.http.get<IDevice[]>(this.deviceAPIUrl + '/devices');
   }
 
   addDevice(data: any) {
-    return this.http.post<any>(this.deviceAPIUrl + '/devices', data);
+    return this.http.post<IDevice[]>(this.deviceAPIUrl + '/devices', data);
   }
 
   updateDevice(id: number|string, data: any) {
-    return this.http.put<any>(this.deviceAPIUrl + `/devices/${id}`, data);
+    return this.http.put<IDevice[]>(this.deviceAPIUrl + `/devices/${id}`, data);
   }
 
   deleteDevice(id: number|string) {
-    return this.http.delete<any>(this.deviceAPIUrl + `/devices/${id}`);
+    return this.http.delete<IDevice[]>(this.deviceAPIUrl + `/devices/${id}`);
   }
 
   //Category

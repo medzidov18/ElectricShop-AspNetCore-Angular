@@ -1,3 +1,16 @@
-<div class="py-4 px-6 border rounded flex items-center flex-row mb-2" *ngFor="let item of deviceList$ | async">
-    <h2>{{ item.id }}</h2>
+<div class="py-4 px-6 border rounded text-center flex mb-2">
+    <img [src]="device.image" [alt]="device.name" class="w-1/6 mb-2" width="300px" height="300px">
+    <h2>{{ device.name }}</h2>
+    <p>{{ device.shortDescription }}</p>
+    <p>Price: <span class="font-bold">{{ device.price | currency: ' AZN ' }}</span></p>
+    
+    <button 
+        class="border py-2 px-4 rounded bg-light"
+        (click)="details= !details"
+        >
+        {{ details ? 'Скрыть' : 'Показать' }} Информацию
+    </button>
+    <div *ngIf="details">
+        <p class="mt-4">{{device.fullDescription}}</p>
+    </div>
 </div>
