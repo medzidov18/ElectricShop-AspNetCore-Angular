@@ -7,56 +7,10 @@
     <div class="text-white mt-2 pr-3 d-flex justify-content-end" style="font-size: 25px;">| Elvin Electroncs</div>
 </div>
 
-<!-- Кнопка создания устройства -->
-<button type="button" class="btn btn-primary float-end m-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-(click)="modalAdd()"
->
-  Добавить Устройство
-</button>
-
-<!-- Кнопка показа категорий -->
-<button type="button" class="btn btn-secondary float-end mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Показать категории
-  </button>
-
 <!-- Body -->
 <div class="container">
 
-    <div class="row mt-5 mb-2">
-        <app-show-device 
-            *ngFor="let device of devices" 
-            [device]="device"
-            class="col-4"
-        ></app-show-device>
-    </div>
+    <app-device></app-device>
 </div>
   
-  <!-- Показ категорий -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Категории товаров</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p *ngFor="let type of categoryList$ | async">{{ type.id }} - {{ type.name }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Модель добавления устройства -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">{{ modalTitle }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <app-add-edit-device></app-add-edit-device>
-        </div>
-      </div>
-    </div>
-  </div>
+  
