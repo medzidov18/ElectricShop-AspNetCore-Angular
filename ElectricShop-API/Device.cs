@@ -17,9 +17,7 @@ namespace ElectricShop_API
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
 
+        [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
-
-        [ForeignKey("CategoryId")] 
-        public virtual Category Category { get; set; }
     }
 }

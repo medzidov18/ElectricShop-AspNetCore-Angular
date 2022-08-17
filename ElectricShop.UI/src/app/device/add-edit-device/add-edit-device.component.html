@@ -1,1 +1,34 @@
-<p>add-edit-device works!</p>
+<form>
+    <div class="mb-3">
+        <label for="id" class="form-label">Категория</label>
+        <select class="form-control" name="categoryId" id="categoryId" [(ngModel)]="categoryId" *ngIf="device.id==0">
+            <option *ngFor="let type of categoryList$ | async" [value]="type.id">{{ type.name }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Название</label>
+        <input type="text" class="form-control" [(ngModel)]="name" name="name">
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Ссылка на картину</label>
+        <input type="text" class="form-control" [(ngModel)]="image" name="image">
+    </div>
+    <div class="mb-3">
+        <label for="shortDescription" class="form-label">Краткое описание</label>
+        <input type="text" class="form-control" [(ngModel)]="shortDescription" name="shortDescription">
+    </div>
+    <div class="mb-3">
+        <label for="fullDescription" class="form-label">Полное описание товара</label>
+        <input type="text" class="form-control" [(ngModel)]="fullDescription" name="fullDescription">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Цена</label>
+        <input type="number" class="form-control" [(ngModel)]="price" name="price">
+    </div>
+    <button (click)="addDevice()" *ngIf="device.id==0" class="btn btn-primary">
+        Add
+    </button>
+    <button (click)="updateDevice()" *ngIf="device.id!=0" class="btn btn-primary">
+        Update
+    </button>
+</form>

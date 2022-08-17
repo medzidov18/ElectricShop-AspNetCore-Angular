@@ -12,7 +12,5 @@ namespace ElectricShop_API
         [Key]
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
-
-        public virtual ICollection<Device> Devices { get; set; }
     }
 }

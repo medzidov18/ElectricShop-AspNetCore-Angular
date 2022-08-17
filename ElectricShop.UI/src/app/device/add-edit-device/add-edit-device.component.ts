@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DeviceApiService } from 'src/app/device-api.service';
+import { IDevice } from 'src/app/Models/device';
 
 @Component({
   selector: 'app-add-edit-device',
@@ -7,9 +10,61 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditDeviceComponent implements OnInit {
 
-  constructor() { }
+  categoryList$: Observable<any[]>;  
+  devices: IDevice[] = []
+
+  constructor(private service: DeviceApiService) { }
+
+  @Input() device: any;
+  id: number = 0;
+  name: string = "";
+  image: string = "";
+  shortDescription: string = "";
+  fullDescription: string = "";
+  price: number;
+  categoryId: number;
 
   ngOnInit(): void {
+    this.id = this.device.id;
+    this.name = this.device.name;
+    this.image = this.device.image;
+    this.shortDescription = this.device.shortDescription;
+    this.fullDescription = this.device.fullDescription;
+    this.price = this.device.price;
+    this.categoryId = this.device.categoryId;
+    this.service.getDevicesList().subscribe(devices => {
+        this.devices = devices;
+    })
+    this.categoryList$ = this.service.getCategoryList();
   }
 
+  addDevice() {
+    var device = {
+        name: this.name,
+        image: this.image,
+        shortDescription: this.shortDescription,
+        fullDescription: this.fullDescription,
+        price: this.price,
+        categoryId: this.categoryId
+    }
+    this.service.addDevice(device).subscribe(res => {
+        var closeModalBtn = document.getElementById('add-edit-modal-close');
+        if (closeModalBtn) {
+            closeModalBtn.click();
+        }
+        var showAddSuccess = document.getElementById('add-success-alert');
+        if (showAddSuccess) {
+            showAddSuccess.style.display = "block";
+        }
+        setTimeout(function() {
+            if (showAddSuccess) {
+                showAddSuccess.style.display = "none";
+            }
+        }, 4000)
+    })    
+  }
+
+  updateDevice() {
+
+  }
 }
