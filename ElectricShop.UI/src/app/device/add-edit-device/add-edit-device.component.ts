@@ -65,6 +65,30 @@ export class AddEditDeviceComponent implements OnInit {
   }
 
   updateDevice() {
-
+    var device = {
+        id: this.id,
+        name: this.name,
+        image: this.image,
+        shortDescription: this.shortDescription,
+        fullDescription: this.fullDescription,
+        price: this.price,
+        categoryId: this.device.categoryId
+    }
+    var id: number = this.id;
+    this.service.updateDevice(id, device).subscribe(res => {
+        var closeModalBtn = document.getElementById('add-edit-modal-close');
+        if (closeModalBtn) {
+            closeModalBtn.click();
+        }
+        var showUpdateSuccess = document.getElementById('update-success-alert');
+        if (showUpdateSuccess) {
+            showUpdateSuccess.style.display = "block";
+        }
+        setTimeout(function() {
+            if (showUpdateSuccess) {
+                showUpdateSuccess.style.display = "none";
+            }
+        }, 4000)
+    })    
   }
 }
