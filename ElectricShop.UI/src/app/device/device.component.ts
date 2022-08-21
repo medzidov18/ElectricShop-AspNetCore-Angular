@@ -29,6 +29,20 @@ export class DeviceComponent implements OnInit {
     modalTitle: string = '';
     activateAddEditDeviceComponent: boolean = false;
     device: any;
+
+    laptopDevices() {
+        this.service.getDevicesListWithOneCategory(2).subscribe(devices => {
+            this.devices = devices;
+            this.refreshCategoryMap();
+        })
+    }
+
+    phoneDevices() {
+        this.service.getDevicesListWithOneCategory(1).subscribe(devices => {
+            this.devices = devices;
+            this.refreshCategoryMap();
+        })
+    }
   
     modalAdd() {
       this.device = {
