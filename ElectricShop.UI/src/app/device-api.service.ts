@@ -17,6 +17,10 @@ export class DeviceApiService {
     return this.http.get<IDevice[]>(this.deviceAPIUrl + '/devices');
   }
 
+  getDevicesListWithOneCategory(categoryId: number|string): Observable<IDevice[]> {
+    return this.http.get<IDevice[]>(this.deviceAPIUrl + `/devices/sortedItems/${categoryId}`);
+  }
+
   addDevice(data: any) {
     return this.http.post<IDevice[]>(this.deviceAPIUrl + '/devices', data);
   }

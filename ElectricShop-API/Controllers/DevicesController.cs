@@ -32,6 +32,17 @@ namespace ElectricShop_API.Controllers
             return await _context.Devices.ToListAsync();
         }
 
+        [HttpGet("sortedItems/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Device>>> GetDevicesWithCategory(int categoryId)
+        {
+            if (_context.Devices == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Devices.Where(x => x.CategoryId == categoryId).ToListAsync();
+        }
+
         // GET: api/Devices/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Device>> GetDevice(int id)

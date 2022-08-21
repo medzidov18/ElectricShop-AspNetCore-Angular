@@ -2,8 +2,8 @@
     Устройство успешно удалено!
   </div>
 
-<div class="py-4 px-6 border rounded text-center flex mb-2">
-    <img [src]="device.image" [alt]="device.name" class="w-1/6 mb-2" width="300px" height="300px">
+<div class="py-4 px-6 border rounded text-center flex mb-2" style="min-width: 370px; min-height: 582px;">
+    <img [src]="device.image" [alt]="device.name" class="img" width="300px" height="300px">
     <h2>{{ device.name }}</h2>
     <p>{{ device.shortDescription }}</p>
     <p>Цена: <span class="font-bold">{{ device.price | currency: ' AZN ' }}</span></p>
