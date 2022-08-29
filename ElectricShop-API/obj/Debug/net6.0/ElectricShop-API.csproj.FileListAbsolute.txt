@@ -264,3 +264,13 @@ C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\obj\Debu
 C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\obj\Debug\net6.0\ElectricShop-API.pdb
 C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\obj\Debug\net6.0\ElectricShop-API.genruntimeconfig.cache
 C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\obj\Debug\net6.0\ref\ElectricShop-API.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Scrutor.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\Asus\Projects\ElectricShop-AspNetCore-Angular\ElectricShop-API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

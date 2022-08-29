@@ -9,9 +9,13 @@ namespace ElectricShop_API.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
     }
 }
