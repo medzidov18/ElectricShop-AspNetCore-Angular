@@ -1,0 +1,41 @@
+#add-success-alert,
+#update-success-alert,
+#delete-success-alert {
+    display: none;
+}
+
+#add-success-alert,
+#update-success-alert,
+#delete-success-alert {
+    animation-name: fadeInAndOut;
+    animation-duration: 4s;
+}
+
+@-webkit-keyframes fadeInAndOut {
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes fadeInAndOut {
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.circle{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    border-color: mediumseagreen;
+    border-width: 2px;
+  }

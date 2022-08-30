@@ -19,10 +19,4 @@ export class AppComponent {
         localStorage.setItem('authToken', token);
     });
   }
-
-  getme() {
-    this.authService.getMe().subscribe((name: string) => {
-        console.log(name);
-    });
-  }
 }

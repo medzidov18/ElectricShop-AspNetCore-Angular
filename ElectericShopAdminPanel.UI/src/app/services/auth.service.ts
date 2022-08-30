@@ -17,7 +17,11 @@ export class AuthService {
     });
   }
 
-  public getMe(): Observable<string> {
-    return this.http.get<string>(this.APIUrl + '/Auth');
+  isLoggedIn() {
+    return localStorage.getItem('authToken')!= null;
+  }
+
+  GetToken() {
+    return localStorage.getItem('authToken')||'';
   }
 }
