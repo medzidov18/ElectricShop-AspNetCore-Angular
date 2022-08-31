@@ -65,6 +65,10 @@ namespace ElectricShop_API.Controllers
 
             string token = CreateToken(adminUser);
 
+            var refreshToken = GenerateRefreshToken();
+            SetRefreshToken(refreshToken, adminUser.Username);
+            _context.SaveChangesAsync();
+
             return Ok(token);
         }
 
@@ -88,6 +92,57 @@ namespace ElectricShop_API.Controllers
             return NoContent();
         }
 
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<string>> RefreshToken(string adminUsername)
+        {
+            var adminUser = await _context.AdminUsers.FindAsync(adminUsername);
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            if (adminUser.RefreshToken != refreshToken)
+            {
+                return Unauthorized("Неверный токен");
+            }
+            if (adminUser.TokenExpires < DateTime.Now)
+            {
+                return Unauthorized("Токен просрочен");
+            }
+
+            string token = CreateToken(adminUser);
+            var newRefreshToken = GenerateRefreshToken();
+            SetRefreshToken(newRefreshToken, adminUser.Username);
+            await _context.SaveChangesAsync();
+
+            return Ok(token);
+        }
+
+        private RefreshToken GenerateRefreshToken()
+        {
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.Now.AddDays(7),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
+
+        private async void SetRefreshToken(RefreshToken newRefreshToken, string adminUsername)
+        {
+            var adminUser = await _context.AdminUsers.FindAsync(adminUsername);
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            adminUser.RefreshToken = newRefreshToken.Token;
+            adminUser.TokenCreated = newRefreshToken.Created;
+            adminUser.TokenExpires = newRefreshToken.Expires;
+            _context.SaveChanges();
+        }
+
         private string CreateToken(AdminUser user)
         {
             List<Claim> claims = new List<Claim>
@@ -103,7 +158,7 @@ namespace ElectricShop_API.Controllers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
