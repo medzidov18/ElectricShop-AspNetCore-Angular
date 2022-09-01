@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DeviceApiService } from 'src/app/services/device-api.service';
 import { IDevice } from 'src/app/models/device';
@@ -6,7 +6,7 @@ import { IDevice } from 'src/app/models/device';
 @Component({
   selector: 'app-add-edit-device',
   templateUrl: './add-edit-device.component.html',
-  styleUrls: ['./add-edit-device.component.css']
+  styleUrls: ['./add-edit-device.component.css'],
 })
 export class AddEditDeviceComponent implements OnInit {
 
