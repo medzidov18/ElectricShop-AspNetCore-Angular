@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DeviceApiService } from 'src/app/services/device-api.service';
 import { IDevice } from 'src/app/models/device';
 import { Observable } from 'rxjs/internal/Observable';
+import { ICategory } from './../../../models/category';
 
 @Component({
   selector: 'app-show-device',
@@ -12,8 +13,10 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ShowDeviceComponent implements OnInit {
 
   devices: IDevice[] = []
+  categories: ICategory[] = []
   categoryList: any[];
   categoryList$: Observable<any[]>;
+  term: any;
 
   categoryMap: Map<number, string> = new Map();
 
@@ -23,6 +26,9 @@ export class ShowDeviceComponent implements OnInit {
     this.service.getDevicesList().subscribe(devices => {
         this.devices = devices;
         this.refreshCategoryMap();
+    })
+    this.service.getCategoryList().subscribe(categories => {
+        this.categories = categories;
     })
     this.categoryList$ = this.service.getCategoryList();
     this.refreshCategoryMap();
@@ -82,6 +88,27 @@ delete(device: any) {
     })
 })
 }
+}
+
+getDevicesListWithOneCategory(id: number) {
+    this.service.getDevicesListWithOneCategory(id).subscribe(devices => {
+        this.devices = devices;
+        this.refreshCategoryMap();
+    })
+}
+
+laptopDevices() {
+    this.service.getDevicesListWithOneCategory(2).subscribe(devices => {
+        this.devices = devices;
+        this.refreshCategoryMap();
+    })
+}
+
+phoneDevices() {
+    this.service.getDevicesListWithOneCategory(1).subscribe(devices => {
+        this.devices = devices;
+        this.refreshCategoryMap();
+    })
 }
 
   details = false
