@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DeviceComponent } from './components/device/device.component';
 import { ShowDeviceComponent } from './components/device/show-device/show-device.component'; 
 import { AddEditDeviceComponent } from './components/device/add-edit-device/add-edit-device.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddEditDeviceComponent } from './components/device/add-edit-device/add-
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
