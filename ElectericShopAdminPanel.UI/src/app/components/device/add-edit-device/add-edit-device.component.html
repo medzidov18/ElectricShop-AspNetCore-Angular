@@ -1,9 +1,7 @@
 <form>
     <div class="mb-3">
         <label for="id" class="form-label">Категория</label>
-        <input type="text" class="form-control" name="categoryId" [(ngModel)]="categoryId"
-        *ngIf="device.id!=0">
-        <select class="form-control" name="categoryId" id="categoryId" [(ngModel)]="categoryId" *ngIf="device.id==0">
+        <select class="form-control" name="categoryId" id="categoryId" [(ngModel)]="categoryId">
             <option *ngFor="let type of categoryList$ | async" [value]="type.id">{{ type.name }}</option>
         </select>
     </div>
@@ -20,12 +18,28 @@
         <input type="text" class="form-control" [(ngModel)]="shortDescription" name="shortDescription">
     </div>
     <div class="mb-3">
+        <label for="raM_ID" class="form-label">Оперативная память</label>
+        <select class="form-control" name="raM_ID" id="raM_ID" [(ngModel)]="raM_ID">
+            <option *ngFor="let ram of ramList$ | async" [value]="ram.id">{{ ram.capacity }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="memoryId" class="form-label">Внутренняя память</label>
+        <select class="form-control" name="memoryId" id="memoryId" [(ngModel)]="memoryId">
+            <option *ngFor="let memory of memoryList$ | async" [value]="memory.id">{{ memory.capacity }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
         <label for="fullDescription" class="form-label">Полное описание товара</label>
         <input type="text" class="form-control" [(ngModel)]="fullDescription" name="fullDescription">
     </div>
     <div class="mb-3">
         <label for="price" class="form-label">Цена</label>
         <input type="number" class="form-control" [(ngModel)]="price" name="price">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Количество товара</label>
+        <input type="number" class="form-control" [(ngModel)]="amount" name="amount">
     </div>
     <button (click)="addDevice()" *ngIf="device.id==0" class="btn btn-primary">
         Add
