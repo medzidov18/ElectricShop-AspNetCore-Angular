@@ -3,6 +3,8 @@ import { DeviceApiService } from 'src/app/services/device-api.service';
 import { IDevice } from 'src/app/models/device';
 import { Observable } from 'rxjs/internal/Observable';
 import { ICategory } from './../../../models/category';
+import { IRam } from './../../../models/ram';
+import { Imemory } from './../../../models/memory';
 
 @Component({
   selector: 'app-show-device',
@@ -14,24 +16,32 @@ export class ShowDeviceComponent implements OnInit {
 
   devices: IDevice[] = []
   categories: ICategory[] = []
+  rams: IRam[] = []
+  memories: Imemory[] = []
   categoryList: any[];
+  ramList: any[];
+  memoryList: any[];
   categoryList$: Observable<any[]>;
+  ramList$: Observable<any[]>;
+  memoryList$: Observable<any[]>; 
   term: any;
 
   categoryMap: Map<number, string> = new Map();
+  ramMap: Map<number, string> = new Map();
+  memoryMap: Map<number, string> = new Map();
 
   constructor(private service: DeviceApiService) { }
 
   ngOnInit(): void {
+    this.ramList$ = this.service.getRamList();
+    this.memoryList$ = this.service.getMemoryList(); 
     this.service.getDevicesList().subscribe(devices => {
         this.devices = devices;
         this.refreshCategoryMap();
     })
-    this.service.getCategoryList().subscribe(categories => {
-        this.categories = categories;
-    })
     this.categoryList$ = this.service.getCategoryList();
-    this.refreshCategoryMap();
+       
+    this.refreshAllMaps();
   }
 
     modalTitle: string = '';
@@ -46,7 +56,10 @@ export class ShowDeviceComponent implements OnInit {
           categoryId:0,
           price: 0,
           shortDescription: '',
-          fullDescription: ''
+          fullDescription: '',
+          raM_ID: 0,
+          memoryId: 0,
+          amount: 0
         }
         this.modalTitle = "Добавить устройство";
         this.activateAddEditDeviceComponent = true;
@@ -62,7 +75,7 @@ modalClose() {
     this.activateAddEditDeviceComponent = false;
     this.service.getDevicesList().subscribe(devices => {
         this.devices = devices;
-        this.refreshCategoryMap();
+        this.refreshAllMaps();
     })
 }
 
@@ -84,17 +97,10 @@ delete(device: any) {
     }, 4000);
     this.service.getDevicesList().subscribe(devices => {
         this.devices = devices;
-        this.refreshCategoryMap();
+        this.refreshAllMaps();
     })
 })
 }
-}
-
-getDevicesListWithOneCategory(id: number) {
-    this.service.getDevicesListWithOneCategory(id).subscribe(devices => {
-        this.devices = devices;
-        this.refreshCategoryMap();
-    })
 }
 
 laptopDevices() {
@@ -122,5 +128,30 @@ phoneDevices() {
             this.categoryMap.set(this.categoryList[i].id, this.categoryList[i].name);
         }
     })
+  }
+  refreshRamMap() {
+    this.service.getRamList().subscribe(data1 => {
+        this.ramList = data1;
+
+        for (let i = 0; i < data1.length; i++) 
+        {
+            this.ramMap.set(this.ramList[i].id, this.ramList[i].capacity);
+        }
+    })
+  }
+  refreshMemoryMap() {
+    this.service.getMemoryList().subscribe(data2 => {
+        this.memoryList = data2;
+
+        for (let i = 0; i < data2.length; i++) 
+        {
+            this.memoryMap.set(this.memoryList[i].id, this.memoryList[i].capacity);
+        }
+    })
+  }
+  refreshAllMaps() {
+    this.refreshCategoryMap(),
+    this.refreshRamMap(),
+    this.refreshMemoryMap()
   }
 }

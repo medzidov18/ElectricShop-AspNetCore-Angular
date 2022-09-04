@@ -10,7 +10,9 @@ import { IDevice } from 'src/app/models/device';
 })
 export class AddEditDeviceComponent implements OnInit {
 
-  categoryList$: Observable<any[]>;  
+  categoryList$: Observable<any[]>;
+  ramList$: Observable<any[]>;
+  memoryList$: Observable<any[]>;  
   devices: IDevice[] = []
 
   constructor(private service: DeviceApiService) { }
@@ -23,6 +25,9 @@ export class AddEditDeviceComponent implements OnInit {
   fullDescription: string = "";
   price: number;
   categoryId: number;
+  raM_ID: number;
+  memoryId: number;
+  amount: number;
 
   ngOnInit(): void {
     this.id = this.device.id;
@@ -32,10 +37,15 @@ export class AddEditDeviceComponent implements OnInit {
     this.fullDescription = this.device.fullDescription;
     this.price = this.device.price;
     this.categoryId = this.device.categoryId;
+    this.raM_ID = this.device.raM_ID,
+    this.memoryId = this.device.memoryId,
+    this.amount = this.device.amount,
     this.service.getDevicesList().subscribe(devices => {
         this.devices = devices;
     })
     this.categoryList$ = this.service.getCategoryList();
+    this.ramList$ = this.service.getRamList();
+    this.memoryList$ = this.service.getMemoryList();
   }
 
   addDevice() {
@@ -45,7 +55,11 @@ export class AddEditDeviceComponent implements OnInit {
         shortDescription: this.shortDescription,
         fullDescription: this.fullDescription,
         price: this.price,
-        categoryId: this.categoryId
+        categoryId: this.categoryId,
+        raM_ID: this.raM_ID,
+        memoryId: this.memoryId,
+        amount: this.amount
+
     }
     this.service.addDevice(device).subscribe(res => {
         var closeModalBtn = document.getElementById('add-edit-modal-close');
@@ -72,7 +86,10 @@ export class AddEditDeviceComponent implements OnInit {
         shortDescription: this.shortDescription,
         fullDescription: this.fullDescription,
         price: this.price,
-        categoryId: this.device.categoryId
+        categoryId: this.device.categoryId,
+        raM_ID: this.raM_ID,
+        memoryId: this.memoryId,
+        amount: this.amount
     }
     var id: number = this.id;
     this.service.updateDevice(id, device).subscribe(res => {

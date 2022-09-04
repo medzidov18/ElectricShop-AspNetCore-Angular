@@ -47,9 +47,10 @@
         <th scope="col">картина</th>
         <th scope="col">Название</th>
         <th scope="col">Категория</th>
+        <th scope="col">Оперативная память</th>
+        <th scope="col">Внутренняя память</th>
         <th scope="col">Цена</th>
-        <th scope="col">Краткое описани</th>
-        <th scope="col">Полное описание</th>
+        <th scope="col">На складе</th>
       </tr>
     </thead>
     <tbody>
@@ -58,9 +59,10 @@
         <td><img [src]="device.image" [alt]="device.name" class="img" width="100px" height="100px"></td>
         <td>{{ device.name }}</td>
         <td>{{ categoryMap.get(device.categoryId) }}</td>
+        <td>{{ ramMap.get(device.raM_ID) }}</td>
+        <td>{{ memoryMap.get(device.memoryId) }}</td>
         <td>{{ device.price }}</td>
-        <td>{{ device.shortDescription }}</td>
-        <td>{{ device.fullDescription }}</td>
+        <td>{{ device.amount  }}</td>
         <td>
             <button class="btn btn-outline-primary me-2 mb-1"
             (click)="modalEdit(device)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -104,7 +106,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <p><b>Категории</b></p>
           <p *ngFor="let type of categoryList$ |async">{{type.id}} - {{type.name}}</p>
+          <p>_ _ _ _ _ _ _ _ _ _ _</p>
+          <p><b>Оперативная память</b></p>
+          <p *ngFor="let ram of ramList$ |async">{{ram.id}} - {{ram.capacity}}</p>
+          <p>_ _ _ _ _ _ _ _ _ _ _</p>
+          <p><b>Внутренняя память</b></p>
+          <p *ngFor="let memory of memoryList$ |async">{{memory.id}} - {{memory.capacity}}</p>
         </div>
         
       </div>
