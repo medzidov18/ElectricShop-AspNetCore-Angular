@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceApiService } from 'src/app/device-api.service';
+import { CartService } from 'src/app/services/cart.service';
+import { DeviceApiService } from 'src/app/services/device-api.service';
 import { IDevice } from './../../Models/device';
 
 @Component({
@@ -10,56 +11,33 @@ import { IDevice } from './../../Models/device';
 })
 export class ShowDeviceComponent implements OnInit {
   @Input() device: IDevice
-  constructor(private service: DeviceApiService) { }
+  constructor(private service: DeviceApiService, private cartService : CartService) { }
 
+  searchKey:string ="";
   devices: IDevice[] = []
   categoryList: any[];
+  ramList: any[];
+  memoryList: any[];
+  ramList$: Observable<any[]>;
+  memoryList$: Observable<any[]>; 
+  
   categoryMap: Map<number, string> = new Map();
+  ramMap: Map<number, string> = new Map();
+  memoryMap: Map<number, string> = new Map();
 
 
   ngOnInit(): void {
-    this.refreshCategoryMap();
+    this.ramList$ = this.service.getRamList();
+    this.memoryList$ = this.service.getMemoryList(); 
+    this.refreshAllMaps();
+    this.cartService.search.subscribe((val:any)=>{
+        this.searchKey = val;
+      })
+  }   
+
+  addtocart(device: any){
+    this.cartService.addtoCart(device);
   }
-
-    modalTitle: string = '';
-    activateAddEditDeviceComponent: boolean = false;
-
-  modalEdit(device: any) {
-    this.device = device;
-    this.modalTitle = "Редактирование устройства";
-    this.activateAddEditDeviceComponent = true;
-  }
-
-modalClose() {
-    this.activateAddEditDeviceComponent = false;
-    this.service.getDevicesList().subscribe(devices => {
-        this.devices = devices;
-        this.refreshCategoryMap();
-    })
-}
-delete(device: any) {
-    if (confirm(`Вы уверены что хотите удалить устройство ${device.id}`)) {
-        this.service.deleteDevice(device.id).subscribe(res => {
-            var closeModalBtn = document.getElementById('add-edit-modal-close');
-    if (closeModalBtn) {
-        closeModalBtn.click();
-    }
-    var showDeleteSuccess = document.getElementById('delete-success-alert');
-    if (showDeleteSuccess) {
-        showDeleteSuccess.style.display = "block";
-    }
-    setTimeout(function() {
-        if (showDeleteSuccess) {
-            showDeleteSuccess.style.display = "none";
-        }
-    }, 4000);
-    this.service.getDevicesList().subscribe(devices => {
-        this.devices = devices;
-        this.refreshCategoryMap();
-    })
-})
-}
-}
 
   details = false
   refreshCategoryMap() {
@@ -71,5 +49,30 @@ delete(device: any) {
             this.categoryMap.set(this.categoryList[i].id, this.categoryList[i].name);
         }
     })
+  }
+  refreshRamMap() {
+    this.service.getRamList().subscribe(data1 => {
+        this.ramList = data1;
+
+        for (let i = 0; i < data1.length; i++) 
+        {
+            this.ramMap.set(this.ramList[i].id, this.ramList[i].capacity);
+        }
+    })
+  }
+  refreshMemoryMap() {
+    this.service.getMemoryList().subscribe(data2 => {
+        this.memoryList = data2;
+
+        for (let i = 0; i < data2.length; i++) 
+        {
+            this.memoryMap.set(this.memoryList[i].id, this.memoryList[i].capacity);
+        }
+    })
+  }
+  refreshAllMaps() {
+    this.refreshCategoryMap(),
+    this.refreshRamMap(),
+    this.refreshMemoryMap()
   }
 }

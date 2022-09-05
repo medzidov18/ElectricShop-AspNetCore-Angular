@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceApiService } from './device-api.service';
+import { DeviceApiService } from './services/device-api.service';
 import { IDevice } from './Models/device';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { IDevice } from './Models/device';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   categoryList$: Observable<any[]>;
   categoryList: any[];
 

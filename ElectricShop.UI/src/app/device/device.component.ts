@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceApiService } from '../device-api.service';
+import { DeviceApiService } from '../services/device-api.service';
 import { IDevice } from '../Models/device';
 
 @Component({
@@ -11,11 +11,15 @@ import { IDevice } from '../Models/device';
 export class DeviceComponent implements OnInit {
 
     title = 'ElectricShop.UI';
-    devices: IDevice[] = []
+    devices: IDevice[] = [];
+    ramList: any[];
+    memoryList: any[];
     categoryList$: Observable<any[]>;
     categoryList: any[];
   
     categoryMap: Map<number, string> = new Map();
+    ramMap: Map<number, string> = new Map();
+    memoryMap: Map<number, string> = new Map();
   
     constructor(private service: DeviceApiService) { }
     
@@ -44,28 +48,6 @@ export class DeviceComponent implements OnInit {
         })
     }
   
-    modalAdd() {
-      this.device = {
-          id: 0,
-          name: null,
-          image: null,
-          shortDescription: null,
-          fullDescription: null,
-          price: 0,
-          categoryId: 0
-      }
-      this.modalTitle = "Добавить устройство";
-      this.activateAddEditDeviceComponent = true;
-    }
-    
-    modalClose() {
-        this.activateAddEditDeviceComponent = false;
-        this.service.getDevicesList().subscribe(devices => {
-            this.devices = devices;
-            this.refreshCategoryMap();
-        })
-    }
-
     refreshCategoryMap() {
       this.service.getCategoryList().subscribe(data => {
           this.categoryList = data;
@@ -76,4 +58,29 @@ export class DeviceComponent implements OnInit {
           }
       })
     }
+    refreshRamMap() {
+        this.service.getRamList().subscribe(data1 => {
+            this.ramList = data1;
+    
+            for (let i = 0; i < data1.length; i++) 
+            {
+                this.ramMap.set(this.ramList[i].id, this.ramList[i].capacity);
+            }
+        })
+      }
+      refreshMemoryMap() {
+        this.service.getMemoryList().subscribe(data2 => {
+            this.memoryList = data2;
+    
+            for (let i = 0; i < data2.length; i++) 
+            {
+                this.memoryMap.set(this.memoryList[i].id, this.memoryList[i].capacity);
+            }
+        })
+      }
+      refreshAllMaps() {
+        this.refreshCategoryMap(),
+        this.refreshRamMap(),
+        this.refreshMemoryMap()
+      }
 }
