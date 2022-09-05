@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './components/cart/cart.component';
+import { DeviceComponent } from './device/device.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+    {path: "", component: DeviceComponent },
+    {path:"login",component: CartComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }
