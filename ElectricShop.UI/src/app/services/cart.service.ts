@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { IDevice } from '../Models/device';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,11 @@ export class CartService {
   public deviceList = new BehaviorSubject<any>([]);
   public search = new BehaviorSubject<string>("");
 
-  constructor() { }
+  readonly deviceAPIUrl = "https://localhost:7163/api";
+  constructor(private http: HttpClient) { }
 
   getProducts(){
-    return this.deviceList.asObservable();
+    return this.http.get<IDevice[]>(this.deviceAPIUrl + '/cart');
   }
 
   setDevice(device : any){

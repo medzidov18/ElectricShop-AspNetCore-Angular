@@ -5,7 +5,7 @@ import { DeviceComponent } from './device/device.component';
 
 const routes: Routes = [
     {path: "", component: DeviceComponent },
-    {path:"login",component: CartComponent}];
+    {path:"cart",component: CartComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

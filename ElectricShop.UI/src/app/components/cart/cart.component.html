@@ -3,7 +3,7 @@
         <div class="card-table">
             <div class="cart-product">
                 <table class="table table-responsive">
-                    <thead>
+                    <thead> 
                         <tr>
                             <th>Id</th>
                             <th>Картина</th>
@@ -26,13 +26,17 @@
                             <td>{{ memoryMap.get(device.memoryId) }}</td>
                             <td>{{ device.price }}</td>
                             <td>
-                                <button (click)="removeDevice(device)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                <button (click)="removeDevice(device)" class="btn btn-danger mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="4"></td>
                             <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
-                            <td><button routerLink="/products" class="btn btn-primary">Shop More</button></td>
+                            <td><button routerLink="" class="btn btn-primary">Shop More</button></td>
                             <td><button class="btn btn-success">Checkout</button></td>
                             <td><strong>Grand Total : ${{grandTotal}}</strong></td>
                         </tr>
@@ -53,7 +57,7 @@
             <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="">
             <h4>Your cart is empty!</h4>
             <h6>Add item to it now</h6>
-            <button routerLink="/products" class="btn btn-primary">Shop Now</button>
+            <button routerLink="" class="btn btn-primary">Shop Now</button>
         </div>
     </div>
 </ng-container>
