@@ -19,11 +19,7 @@ export class CartService {
     return this.http.get<IDevice[]>(this.deviceAPIUrl + '/cart');
   }
 
-  setDevice(device : any){
-    this.cartItemList.push(...device);
-    this.deviceList.next(device);
-  }
-  addtoCart(device : any){
+  addToCart(device : any){
     this.cartItemList.push(device);
     this.deviceList.next(this.cartItemList);
     this.getTotalPrice();
