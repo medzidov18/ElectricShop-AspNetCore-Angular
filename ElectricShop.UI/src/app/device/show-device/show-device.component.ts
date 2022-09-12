@@ -36,7 +36,7 @@ export class ShowDeviceComponent implements OnInit {
   }   
 
   addtocart(device: any){
-    this.cartService.addtoCart(device);
+    this.cartService.addToCart(device);
   }
 
   details = false
