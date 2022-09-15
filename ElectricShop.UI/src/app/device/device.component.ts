@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DeviceApiService } from '../services/device-api.service';
 import { IDevice } from '../Models/device';
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-device',
@@ -21,32 +22,18 @@ export class DeviceComponent implements OnInit {
     ramMap: Map<number, string> = new Map();
     memoryMap: Map<number, string> = new Map();
   
-    constructor(private service: DeviceApiService) { }
+    constructor(private service: DeviceApiService, private filterService: FilterService) { }
     
     ngOnInit(): void {
       this.service.getDevicesList().subscribe(devices => {
           this.devices = devices;
-          this.refreshCategoryMap();
+          this.refreshAllMaps();
       })
     }
 
     modalTitle: string = '';
     activateAddEditDeviceComponent: boolean = false;
     device: any;
-
-    laptopDevices() {
-        this.service.getDevicesListWithOneCategory(2).subscribe(devices => {
-            this.devices = devices;
-            this.refreshCategoryMap();
-        })
-    }
-
-    phoneDevices() {
-        this.service.getDevicesListWithOneCategory(1).subscribe(devices => {
-            this.devices = devices;
-            this.refreshCategoryMap();
-        })
-    }
   
     refreshCategoryMap() {
       this.service.getCategoryList().subscribe(data => {

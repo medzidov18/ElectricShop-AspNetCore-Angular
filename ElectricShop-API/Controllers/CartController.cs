@@ -26,14 +26,12 @@ namespace ElectricShop_API.Controllers
             return await _context.CartTable.ToListAsync();
         }
 
-        [HttpPut("addToCart/{id}")]
-        public async Task<IActionResult> PutDeviceInCart(int id)
+        [HttpPut("addToCart/{device}")]
+        public async Task<IActionResult> PutDeviceInCart(CartDevices device)
         {
-            var device = _context.Devices.Find(id);
-
-            if (id != device.Id)
+            if (device == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             var newCartDevice = new CartDevices
@@ -57,7 +55,7 @@ namespace ElectricShop_API.Controllers
         }
 
         [HttpGet("getTotalPrice")]
-        public async Task<IActionResult> GetTotalPrice()
+        public ActionResult<float> GetTotalPrice()
         {
             var totalPrice = _context.CartTable.ToList().Sum(p => p.Price);
 
@@ -84,7 +82,7 @@ namespace ElectricShop_API.Controllers
         }
 
         [HttpDelete("removeAllCart")]
-        public async Task<IActionResult> DeleteAllCart(int id)
+        public async Task<IActionResult> DeleteAllCart()
         {
             if (_context.CartTable == null)
             {
