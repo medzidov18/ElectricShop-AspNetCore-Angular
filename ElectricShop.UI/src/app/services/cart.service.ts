@@ -1,47 +1,51 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError } from 'rxjs';
 import { IDevice } from '../Models/device';
+import { ICartDevice } from './../Models/cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  public cartItemList : any =[]
-  public deviceList = new BehaviorSubject<any>([]);
-  public search = new BehaviorSubject<string>("");
+    devices: any[] = [];
 
-  readonly deviceAPIUrl = "https://localhost:7163/api";
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  getProducts(){
-    return this.http.get<IDevice[]>(this.deviceAPIUrl + '/cart');
+  getDevices(){
+    return this.devices;
   }
 
-  addToCart(device : any){
-    this.cartItemList.push(device);
-    this.deviceList.next(this.cartItemList);
-    this.getTotalPrice();
-    console.log(this.cartItemList)
+  addToCart(addedProduct : any){
+    this.devices.push(addedProduct);
   }
+
+  loadCart(): void {
+    this.devices = JSON.parse(localStorage.getItem('cart_items') as any) || [];
+  }
+
+  deviceInCart(device: any): boolean {
+    return this.devices.findIndex((x: any) => x.id === device.id) > -1;
+  }
+
   getTotalPrice() : number{
     let grandTotal = 0;
-    this.cartItemList.map((a:any)=>{
+    this.devices.map((a:any)=>{
       grandTotal += a.total;
     })
     return grandTotal;
+   }
+
+  removeDevice(device: any) {
+    const index = this.devices.findIndex((x: any) => x.id === device.id);
+
+    if (index > -1) {
+      this.devices.splice(index, 1);
+    }
   }
-  removeCartItem(device: any){
-    this.cartItemList.map((a:any, index:any)=>{
-      if(device.id=== a.id){
-        this.cartItemList.splice(index,1);
-      }
-    })
-    this.deviceList.next(this.cartItemList);
-  }
-  removeAllCart(){
-    this.cartItemList = []
-    this.deviceList.next(this.cartItemList);
+
+  clearDevices() {
+    localStorage.clear();
   }
 }

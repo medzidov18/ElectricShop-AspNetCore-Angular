@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { DeviceApiService } from 'src/app/services/device-api.service';
+import { FilterService } from 'src/app/services/filter.service';
 import { IDevice } from './../../Models/device';
 
 @Component({
@@ -30,14 +31,16 @@ export class ShowDeviceComponent implements OnInit {
     this.ramList$ = this.service.getRamList();
     this.memoryList$ = this.service.getMemoryList(); 
     this.refreshAllMaps();
-    this.cartService.search.subscribe((val:any)=>{
-        this.searchKey = val;
-      })
   }   
 
-  addtocart(device: any){
-    this.cartService.addToCart(device);
-  }
+  addtocart(data: any){
+    // this.cartService.addToCart(data);
+    if (!this.cartService.deviceInCart(data)) {
+        this.cartService.addToCart(data);
+        this.devices = [...this.cartService.getDevices()];
+        localStorage.setItem('cart_items', JSON.stringify(this.devices));
+    }
+  } 
 
   details = false
   refreshCategoryMap() {

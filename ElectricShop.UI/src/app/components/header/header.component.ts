@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IDevice } from 'src/app/Models/device';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -8,14 +9,15 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent implements OnInit {
 
+  devices : IDevice[] = [];
   totalItem : number = 0;
 
   constructor(private cartService : CartService) { }
 
   ngOnInit(): void {
-    this.cartService.getProducts().subscribe(res=>{
-        this.totalItem = res.length;
-      })
+    this.cartService.getDevices();
+    this.devices = JSON.parse(localStorage.getItem('cart_items') as any) || [];
+    this.totalItem = this.devices.length;
   }
-
+  
 }

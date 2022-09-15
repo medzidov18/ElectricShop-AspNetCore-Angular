@@ -3,6 +3,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { IDevice } from 'src/app/Models/device';
 import { Observable } from 'rxjs';
 import { DeviceApiService } from 'src/app/services/device-api.service';
+import { ICartDevice } from './../../Models/cart';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,10 @@ import { DeviceApiService } from 'src/app/services/device-api.service';
 export class CartComponent implements OnInit {
     
     devices : IDevice[] = [];
-    grandTotal !: number;
+    device: any;
+    cartDevices: any;
+    grandTotal !: any;
+    values: [];
 
     categoryList: any[];
     ramList: any[];
@@ -28,22 +32,23 @@ export class CartComponent implements OnInit {
     constructor(private cartService : CartService, private service : DeviceApiService) { }
   
     ngOnInit(): void {
-      this.cartService.getProducts()
-      .subscribe(res=>{
-        this.devices = res;
-        this.grandTotal = this.cartService.getTotalPrice();
-      })
+      this.devices = JSON.parse(localStorage.getItem('cart_items') as any) || [];
+    
+      this.grandTotal = this.cartService.getTotalPrice();
       this.ramList$ = this.service.getRamList();
       this.memoryList$ = this.service.getMemoryList()
       this.categoryList$ = this.service.getCategoryList();
 
       this.refreshAllMaps();
+      localStorage.clear();
     }
-    removeDevice(device: IDevice){
-      this.cartService.removeCartItem(device);
+    removeDevice(device: any){
+      this.cartService.removeDevice(device);
+      this.devices = this.cartService.getDevices();
+      localStorage.setItem('cart_items', JSON.stringify(this.devices));
     }
-    emptycart(){
-      this.cartService.removeAllCart();
+    removeAllCart(){
+      this.cartService.clearDevices();
     }
 
     refreshCategoryMap() {
