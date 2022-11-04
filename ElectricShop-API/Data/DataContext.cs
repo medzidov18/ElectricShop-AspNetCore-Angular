@@ -17,9 +17,9 @@ namespace ElectricShop_API.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Device> Devices { get; set; }
-        public DbSet<CartDevices> CartTable { get; set; }
         public DbSet<RAM> Ram { get; set; }
         public DbSet<Memory> Memory { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
