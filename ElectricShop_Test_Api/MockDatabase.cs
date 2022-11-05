@@ -35,6 +35,7 @@ namespace ElectricShop_Test_Api
                             MemoryId = 1,
                             Amount = 1
                         });
+                    await databaseContext.SaveChangesAsync();
                 }
             }
             return databaseContext;
