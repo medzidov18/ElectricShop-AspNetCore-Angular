@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ElectricShop_API;
@@ -68,7 +69,7 @@ namespace ElectricShop_Test_Api.Controller
         }
 
         [Fact]
-        public async void DevicesController_DeleteDevice_ReturnOneDevice()
+        public async void DevicesController_DeleteDevice_DeleteDevice()
         {
             //Arrange
             int deviceId = 1;
@@ -76,11 +77,55 @@ namespace ElectricShop_Test_Api.Controller
             var controller = new DevicesController(dbContext);
 
             //Act
-            var result = controller.DeleteDevice(deviceId);
+            var result = await controller.DeleteDevice(deviceId);
 
             //Assert
             result.Should().NotBeNull();
-            Assert.IsAssignableFrom<NoContentResult>(result.Result);
+            result.Should().BeOfType<NoContentResult>();
+        }
+
+        [Fact]
+        public async void DevicesController_PutDevice_UpdateDevice()
+        {
+            //Arrange
+            int deviceId = 1;
+            var dbContext = await _database.GetDatabaseContext();
+            var controller = new DevicesController(dbContext);
+            var device = dbContext.Devices.Find(deviceId);
+
+            //Act
+            var result = await controller.PutDevice(deviceId, device);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<NoContentResult>();
+        }
+
+        [Fact]
+        public async void DevicesController_PostDevice_CreatingNewDevice()
+        {
+            //Arrange
+            var device = new Device
+            {
+                Name = "Asus Vivobook",
+                Price = 1700,
+                Image = "https://items.s1.citilink.ru/1523022_v11_b.jpg",
+                ShortDescription = "my laptop",
+                FullDescription = "myyyy laptoooop",
+                CategoryId = 1,
+                RAM_ID = 1,
+                MemoryId = 1,
+                Amount = 1
+            };
+            var dbContext = await _database.GetDatabaseContext();
+            var controller = new DevicesController(dbContext);
+
+            //Act
+            var result = await controller.PostDevice(device);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ActionResult<Device>>();
         }
     }
 }
