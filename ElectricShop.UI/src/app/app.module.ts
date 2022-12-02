@@ -15,6 +15,7 @@ import { FavouriteComponent } from './device/favourite/favourite.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { SortingSidebarComponent } from './device/sorting-sidebar/sorting-sidebar.component';
+import { PartnersComponent } from './components/partners/partners.component';
 
 
 const appRoute: Routes = [
@@ -32,7 +33,8 @@ const appRoute: Routes = [
     FavouriteComponent,
     HeaderComponent,
     CartComponent,
-    SortingSidebarComponent
+    SortingSidebarComponent,
+    PartnersComponent
   ],
   imports: [
     BrowserModule,

@@ -21,5 +21,6 @@ namespace ElectricShop_API.Data
         public DbSet<Memory> Memory { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Partners> Partners { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace ElectricShop_API.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok("Memory Updated");
         }
 
         // POST: api/Memory
