@@ -1,11 +1,9 @@
 <section class="section section-default mt-none mb-5">
     <div class="container">
-        <h2 class="mb-sm">Our <strong>Partners</strong></h2>
-        <div class="row">
-            <div
-            *ngFor="let partner of partners"
-            class="col-2">
+        <h2 class="mb-sm" style="text-align:center;"><strong>Our Partners</strong></h2>
+        <div class="row" style="border: 2px solid black;">
+            <a [href]="partner.link" target="_blank" *ngFor="let partner of partners" class="col">
                 <img [src]="partner.logo" [alt]="partner.name" class="img" width="100px" height="100px">
-            <div>
+            </a>
         </div>
 </div>

@@ -13,6 +13,6 @@ export class PartnersService {
   constructor(private http: HttpClient) { }
 
   getPartners(): Observable<IPartner[]>  {
-    return this.http.get<IPartner[]>(this.deviceAPIUrl + 'Partners');
+    return this.http.get<IPartner[]>(this.deviceAPIUrl + '/partners');
   }
 }
